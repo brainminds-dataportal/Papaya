@@ -19,11 +19,36 @@ console.info = console.info || function () {};
 
 /*** Static Fields ***/
 
+// browser detection (bowser 2.x API)
+papaya.utilities.PlatformUtils.detectBrowser = function () {
+    var parser, browserName;
+
+    if ((typeof bowser === "undefined") || !bowser.getParser || (typeof navigator === "undefined")) {
+        return {name: null, version: null, ios: false, mobile: false};
+    }
+
+    parser = bowser.getParser(navigator.userAgent);
+    browserName = parser.getBrowserName();
+
+    // Chromium-based Edge behaves like Chrome
+    if ((browserName === "Microsoft Edge") && (parser.getEngineName() === "Blink")) {
+        browserName = "Chrome";
+    }
+
+    return {
+        name: browserName,
+        version: parseFloat(parser.getBrowserVersion()),
+        ios: (parser.getOSName() === "iOS"),
+        mobile: (parser.getPlatformType() === "mobile")
+    };
+};
+
 papaya.utilities.PlatformUtils.os = null;
-papaya.utilities.PlatformUtils.browser = bowser.name;
-papaya.utilities.PlatformUtils.browserVersion = bowser.version;
-papaya.utilities.PlatformUtils.ios = bowser.ios;
-papaya.utilities.PlatformUtils.mobile = bowser.mobile;
+papaya.utilities.PlatformUtils.browserInfo = papaya.utilities.PlatformUtils.detectBrowser();
+papaya.utilities.PlatformUtils.browser = papaya.utilities.PlatformUtils.browserInfo.name;
+papaya.utilities.PlatformUtils.browserVersion = papaya.utilities.PlatformUtils.browserInfo.version;
+papaya.utilities.PlatformUtils.ios = papaya.utilities.PlatformUtils.browserInfo.ios;
+papaya.utilities.PlatformUtils.mobile = papaya.utilities.PlatformUtils.browserInfo.mobile;
 papaya.utilities.PlatformUtils.lastScrollEventTimestamp = 0;
 papaya.utilities.PlatformUtils.smallScreen = window.matchMedia && window.matchMedia("only screen and (max-width: 760px)").matches;
 

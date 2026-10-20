@@ -42,6 +42,10 @@ Options are passed after `--`, e.g. `npm run build -- --nodicom --sample` (see `
 
 `npm run release` rebuilds all the variants in `release/current/`.
 
+### Third-party libraries
+Third-party libraries are declared in `package.json` and copied (or bundled from their sources, for nifti-reader-js and daikon) in `lib/` by `npm run vendor` (after updating them with npm).
+`lib/base64-binary.js`, `lib/numerics.js`, `lib/pako-inflate.js`, `lib/gl-matrix.js` and `lib/GLU.js` are legacy or locally modified copies, not managed by npm.
+
 ### [Usage](https://github.com/rii-mango/Papaya/wiki/Usage) & [Configuration](https://github.com/rii-mango/Papaya/wiki/Configuration)
 
 #### Basic usage (loads a blank viewer)
@@ -123,8 +127,9 @@ Papaya uses:
 - [GIFTI-Reader-JS](https://github.com/rii-mango/GIFTI-Reader-JS) for GIFTI support 
 
 As well as the following third-party libraries:
-- [bowser](https://github.com/ded/bowser) &mdash; for browser detection
+- [bowser](https://github.com/bowser-js/bowser) &mdash; for browser detection
 - [esbuild](https://esbuild.github.io/) &mdash; JavaScript & CSS compression
 - [jquery](http://jquery.com/) &mdash; DOM manipulation
 - [numerics](http://numericjs.com/) &mdash; for matrix math
 - [pako](https://github.com/nodeca/pako) &mdash; for GZIP inflating
+- [js-xss](https://github.com/leizongmin/js-xss) &mdash; for sanitizing header text
