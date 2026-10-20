@@ -781,7 +781,7 @@ papaya.viewer.Viewer.prototype.finishedLoading = function () {
 
 papaya.viewer.Viewer.prototype.addScroll = function () {
     // if (!this.container.nestedViewer) {
-    window.addEventListener(papaya.utilities.PlatformUtils.getSupportedScrollEvent(), this.listenerScroll, false);
+    window.addEventListener(papaya.utilities.PlatformUtils.getSupportedScrollEvent(), this.listenerScroll, {passive: false});
     // }
 };
 

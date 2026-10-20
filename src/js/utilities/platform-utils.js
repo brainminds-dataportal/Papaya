@@ -330,17 +330,10 @@ papaya.utilities.PlatformUtils.launchCustomProtocol = function (container, url, 
 
 
 papaya.utilities.PlatformUtils.getSupportedScrollEvent = function() {
-    var support;
-    if (papaya.utilities.PlatformUtils.browser === "Firefox") {
-        support = "DOMMouseScroll";
-    } else {
-        // https://developer.mozilla.org/en-US/docs/Web/Events/wheel
-        support = "onwheel" in document.createElement("div") ? "wheel" : // Modern browsers support "wheel"
-            document.onmousewheel !== undefined ? "mousewheel" : // Webkit and IE support at least "mousewheel"
-                "DOMMouseScroll"; // let's assume that remaining browsers are older Firefox
-    }
-
-    return support;
+    // https://developer.mozilla.org/en-US/docs/Web/API/Element/wheel_event
+    return "onwheel" in document.createElement("div") ? "wheel" : // Modern browsers (including Firefox) support "wheel"
+        document.onmousewheel !== undefined ? "mousewheel" : // Webkit and IE support at least "mousewheel"
+            "DOMMouseScroll"; // let's assume that remaining browsers are older Firefox
 };
 
 
