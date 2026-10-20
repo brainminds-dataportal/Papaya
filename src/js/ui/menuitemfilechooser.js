@@ -51,5 +51,5 @@ papaya.ui.MenuItemFileChooser.prototype.buildHTML = function (parentId) {
         filechooser.callback(filechooser.action, document.getElementById(filechooser.fileChooserId).files);
     });
 
-    $("#" + this.id).hover(function () {$(this).toggleClass(PAPAYA_MENU_HOVERING_CSS); });
+    $("#" + this.id).on("mouseenter mouseleave", function () {$(this).toggleClass(PAPAYA_MENU_HOVERING_CSS); });
 };

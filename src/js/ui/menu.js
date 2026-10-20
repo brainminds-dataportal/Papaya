@@ -152,23 +152,24 @@ papaya.ui.Menu.prototype.buildMenuButton = function () {
         menu = this;
 
         if (this.menuOnHover) {
-            buttonImgHtml.mouseenter(function () { menu.showHoverMenuTimeout = setTimeout(papaya.utilities.ObjectUtils.bind(menu, menu.showMenu),
+            buttonImgHtml.on("mouseenter", function () { menu.showHoverMenuTimeout = setTimeout(papaya.utilities.ObjectUtils.bind(menu, menu.showMenu),
                 500); });
-            buttonImgHtml.mouseleave(function () { clearTimeout(menu.showHoverMenuTimeout);
+            buttonImgHtml.on("mouseleave", function () { clearTimeout(menu.showHoverMenuTimeout);
                 menu.showHoverMenuTimeout = null; });
         }
 
-        buttonHtml.click(papaya.utilities.ObjectUtils.bind(this, this.doClick));
+        buttonHtml.on("click", papaya.utilities.ObjectUtils.bind(this, this.doClick));
 
         if (this.icons) {
-            buttonImgHtml.hover(
+            buttonImgHtml.on("mouseenter",
                 function () {
                     if (menu.icons.length > 1) {
                         $(this).css({"border-color": "gray"});
                     } else {
                         $(this).css({"border-color": "#FF5A3D"});
                     }
-                },
+                }
+            ).on("mouseleave",
                 papaya.utilities.ObjectUtils.bind(menu, function () {
                     if (menu.dataSource.isSelected(parseInt(menu.imageIndex, 10)) && menu.dataSource.isSelectable()) {
                         $("#" + menu.buttonId + " > img").css({"border": "2px solid #FF5A3D"});
@@ -178,15 +179,15 @@ papaya.ui.Menu.prototype.buildMenuButton = function () {
                 })
             );
 
-            buttonImgHtml.mousedown(function () {
+            buttonImgHtml.on("mousedown", function () {
                 $(this).css({ 'border': '2px inset lightgray' });
             });
 
-            buttonImgHtml.mouseup(function () {
+            buttonImgHtml.on("mouseup", function () {
                 $(this).css({ 'border': '2px outset lightgray' });
             });
         } else if (!this.isTitleBar) {
-            buttonHtml.hover(function () {$(this).toggleClass(PAPAYA_MENU_BUTTON_HOVERING_CSS); });
+            buttonHtml.on("mouseenter mouseleave", function () {$(this).toggleClass(PAPAYA_MENU_BUTTON_HOVERING_CSS); });
         }
     }
 

@@ -56,12 +56,12 @@ papaya.ui.MenuItem.prototype.buildHTML = function (parentId) {
         thisHtml[0].style.fontSize = 18 + 'px';
     }
 
-    thisHtml.click(papaya.utilities.ObjectUtils.bind(this,
+    thisHtml.on("click", papaya.utilities.ObjectUtils.bind(this,
         function (e) {
             this.doAction(this.isContext && e.shiftKey);
         }));
 
-    thisHtml.hover(function () { $(this).toggleClass(PAPAYA_MENU_HOVERING_CSS); });
+    thisHtml.on("mouseenter mouseleave", function () { $(this).toggleClass(PAPAYA_MENU_HOVERING_CSS); });
 };
 
 

@@ -47,8 +47,8 @@ papaya.ui.MenuItemRadioButton.prototype.buildHTML = function (parentId) {
         PAPAYA_MENU_UNSELECTABLE + "'>&nbsp;" + this.label + "</span></li>";
     $("#" + parentId).append(html);
     thisHtml = $("#" + this.id);
-    thisHtml.click(papaya.utilities.ObjectUtils.bind(this, this.doAction));
-    thisHtml.hover(function () { $(this).toggleClass(PAPAYA_MENU_HOVERING_CSS); });
+    thisHtml.on("click", papaya.utilities.ObjectUtils.bind(this, this.doAction));
+    thisHtml.on("mouseenter mouseleave", function () { $(this).toggleClass(PAPAYA_MENU_HOVERING_CSS); });
 };
 
 

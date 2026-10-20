@@ -291,9 +291,9 @@ papaya.utilities.PlatformUtils.launchCustomProtocol = function (container, url, 
     } else if (papaya.utilities.PlatformUtils.browser === "Chrome") {
         container.viewerHtml.css({"outline": 0});
         container.viewerHtml.attr("tabindex", "1");
-        container.viewerHtml.focus();
+        container.viewerHtml.trigger("focus");
 
-        container.viewerHtml.blur(function () {
+        container.viewerHtml.on("blur", function () {
             success = true;
             callback(true);  // true
         });

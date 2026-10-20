@@ -50,7 +50,7 @@ papaya.ui.MenuItemSlider.prototype.buildHTML = function (parentId) {
     $("#" + parentId).append(html);
 
     thisHtml = $("#" + this.id);
-    thisHtml.hover(function () { $(this).toggleClass(PAPAYA_MENU_HOVERING_CSS); });
+    thisHtml.on("mouseenter mouseleave", function () { $(this).toggleClass(PAPAYA_MENU_HOVERING_CSS); });
     sliderHtml = $("#" + sliderId);
 
     menuItem = this;

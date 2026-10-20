@@ -590,7 +590,7 @@ papaya.viewer.Viewer.prototype.initializeViewer = function () {
 
         if (this.container.showControlBar) {
             // main slice
-            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_MAIN_SLIDER).find("button")).eq(0).click(function () {
+            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_MAIN_SLIDER).find("button")).eq(0).on("click", function () {
                 if (viewer.mainImage.sliceDirection === papaya.viewer.ScreenSlice.DIRECTION_AXIAL) {
                     viewer.incrementAxial(false);
                 } else if (viewer.mainImage.sliceDirection === papaya.viewer.ScreenSlice.DIRECTION_CORONAL) {
@@ -600,7 +600,7 @@ papaya.viewer.Viewer.prototype.initializeViewer = function () {
                 }
             });
 
-            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_MAIN_SLIDER).find("button")).eq(1).click(function () {
+            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_MAIN_SLIDER).find("button")).eq(1).on("click", function () {
                 if (viewer.mainImage.sliceDirection === papaya.viewer.ScreenSlice.DIRECTION_AXIAL) {
                     viewer.incrementAxial(true);
                 } else if (viewer.mainImage.sliceDirection === papaya.viewer.ScreenSlice.DIRECTION_CORONAL) {
@@ -611,54 +611,54 @@ papaya.viewer.Viewer.prototype.initializeViewer = function () {
             });
 
             // axial slice
-            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_DIRECTION_SLIDER).eq(0).find("button").eq(0)).click(function () {
+            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_DIRECTION_SLIDER).eq(0).find("button").eq(0)).on("click", function () {
                 viewer.incrementAxial(false);
             });
 
-            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_DIRECTION_SLIDER).eq(0).find("button").eq(1)).click(function () {
+            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_DIRECTION_SLIDER).eq(0).find("button").eq(1)).on("click", function () {
                 viewer.incrementAxial(true);
             });
 
             // coronal slice
-            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_DIRECTION_SLIDER).eq(1).find("button").eq(0)).click(function () {
+            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_DIRECTION_SLIDER).eq(1).find("button").eq(0)).on("click", function () {
                 viewer.incrementCoronal(false);
             });
 
-            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_DIRECTION_SLIDER).eq(1).find("button").eq(1)).click(function () {
+            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_DIRECTION_SLIDER).eq(1).find("button").eq(1)).on("click", function () {
                 viewer.incrementCoronal(true);
             });
 
             // sagittal slice
-            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_DIRECTION_SLIDER).eq(2).find("button").eq(0)).click(function () {
+            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_DIRECTION_SLIDER).eq(2).find("button").eq(0)).on("click", function () {
                 viewer.incrementSagittal(true);
             });
 
-            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_DIRECTION_SLIDER).eq(2).find("button").eq(1)).click(function () {
+            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_DIRECTION_SLIDER).eq(2).find("button").eq(1)).on("click", function () {
                 viewer.incrementSagittal(false);
             });
 
             // series
-            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_DIRECTION_SLIDER).eq(3).find("button").eq(0)).click(function () {
+            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_DIRECTION_SLIDER).eq(3).find("button").eq(0)).on("click", function () {
                 viewer.decrementSeriesPoint();
             });
 
-            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_DIRECTION_SLIDER).eq(3).find("button").eq(1)).click(function () {
+            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_DIRECTION_SLIDER).eq(3).find("button").eq(1)).on("click", function () {
                 viewer.incrementSeriesPoint();
             });
 
             // buttons
-            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_SWAP_BUTTON_CSS)).click(function () {
+            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_SWAP_BUTTON_CSS)).on("click", function () {
                 viewer.rotateViews();
             });
 
-            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_GOTO_CENTER_BUTTON_CSS)).click(function () {
+            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_GOTO_CENTER_BUTTON_CSS)).on("click", function () {
                 var center = new papaya.core.Coordinate(Math.floor(viewer.volume.header.imageDimensions.xDim / 2),
                     Math.floor(viewer.volume.header.imageDimensions.yDim / 2),
                     Math.floor(viewer.volume.header.imageDimensions.zDim / 2));
                 viewer.gotoCoordinate(center);
             });
 
-            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_GOTO_ORIGIN_BUTTON_CSS)).click(function () {
+            $(this.container.sliderControlHtml.find("." + PAPAYA_CONTROL_GOTO_ORIGIN_BUTTON_CSS)).on("click", function () {
                 viewer.gotoCoordinate(viewer.volume.header.origin);
             });
 
@@ -671,11 +671,11 @@ papaya.viewer.Viewer.prototype.initializeViewer = function () {
             $("#" + PAPAYA_CONTROL_MAIN_DECREMENT_BUTTON_CSS + this.container.containerIndex).css({ display: "inline" });
             $("#" + PAPAYA_CONTROL_MAIN_SWAP_BUTTON_CSS + this.container.containerIndex).css({ display: "inline" });
 
-            $(this.container.containerHtml.find("#" + PAPAYA_CONTROL_MAIN_SWAP_BUTTON_CSS + this.container.containerIndex)).click(function () {
+            $(this.container.containerHtml.find("#" + PAPAYA_CONTROL_MAIN_SWAP_BUTTON_CSS + this.container.containerIndex)).on("click", function () {
                 viewer.rotateViews();
             });
 
-            $(this.container.containerHtml.find("#" + PAPAYA_CONTROL_MAIN_INCREMENT_BUTTON_CSS + this.container.containerIndex)).click(function () {
+            $(this.container.containerHtml.find("#" + PAPAYA_CONTROL_MAIN_INCREMENT_BUTTON_CSS + this.container.containerIndex)).on("click", function () {
                 if (viewer.mainImage.sliceDirection === papaya.viewer.ScreenSlice.DIRECTION_AXIAL) {
                     viewer.incrementAxial(false);
                 } else if (viewer.mainImage.sliceDirection === papaya.viewer.ScreenSlice.DIRECTION_CORONAL) {
@@ -685,7 +685,7 @@ papaya.viewer.Viewer.prototype.initializeViewer = function () {
                 }
             });
 
-            $(this.container.containerHtml.find("#" + PAPAYA_CONTROL_MAIN_DECREMENT_BUTTON_CSS + this.container.containerIndex)).click(function () {
+            $(this.container.containerHtml.find("#" + PAPAYA_CONTROL_MAIN_DECREMENT_BUTTON_CSS + this.container.containerIndex)).on("click", function () {
                 if (viewer.mainImage.sliceDirection === papaya.viewer.ScreenSlice.DIRECTION_AXIAL) {
                     viewer.incrementAxial(true);
                 } else if (viewer.mainImage.sliceDirection === papaya.viewer.ScreenSlice.DIRECTION_CORONAL) {
@@ -695,14 +695,14 @@ papaya.viewer.Viewer.prototype.initializeViewer = function () {
                 }
             });
 
-            $(this.container.containerHtml.find("#" + PAPAYA_CONTROL_MAIN_GOTO_CENTER_BUTTON_CSS + this.container.containerIndex)).click(function () {
+            $(this.container.containerHtml.find("#" + PAPAYA_CONTROL_MAIN_GOTO_CENTER_BUTTON_CSS + this.container.containerIndex)).on("click", function () {
                 var center = new papaya.core.Coordinate(Math.floor(viewer.volume.header.imageDimensions.xDim / 2),
                     Math.floor(viewer.volume.header.imageDimensions.yDim / 2),
                     Math.floor(viewer.volume.header.imageDimensions.zDim / 2));
                 viewer.gotoCoordinate(center);
             });
 
-            $(this.container.containerHtml.find("#" + PAPAYA_CONTROL_MAIN_GOTO_ORIGIN_BUTTON_CSS + this.container.containerIndex)).click(function () {
+            $(this.container.containerHtml.find("#" + PAPAYA_CONTROL_MAIN_GOTO_ORIGIN_BUTTON_CSS + this.container.containerIndex)).on("click", function () {
                 viewer.gotoCoordinate(viewer.volume.header.origin);
             });
         }

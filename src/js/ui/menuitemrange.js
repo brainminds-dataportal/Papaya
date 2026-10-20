@@ -109,10 +109,10 @@ papaya.ui.MenuItemRange.prototype.buildHTML = function (parentId) {
         maxHtml[0].style.marginRight = 4 + 'px';
     }
 
-    minSliderHtml.bind(papaya.utilities.PlatformUtils.ios ? 'touchstart' : 'mousedown', function (ev) {
+    minSliderHtml.on(papaya.utilities.PlatformUtils.ios ? 'touchstart' : 'mousedown', function (ev) {
         menuItemRange.grabOffset = papaya.ui.MenuItemRange.getRelativeMousePositionX(minSliderHtml, ev);
 
-        $(window).bind(papaya.utilities.PlatformUtils.ios ? 'touchmove' : 'mousemove', function (ev) {
+        $(window).on(papaya.utilities.PlatformUtils.ios ? 'touchmove' : 'mousemove', function (ev) {
             var val, maxVal;
 
             maxVal = (menuItemRange.screenVol.colorTable.maxLUT / papaya.viewer.ColorTable.LUT_MAX) *
@@ -139,9 +139,9 @@ papaya.ui.MenuItemRange.prototype.buildHTML = function (parentId) {
         return false;  // disable img drag
     });
 
-    maxSliderHtml.bind(papaya.utilities.PlatformUtils.ios ? 'touchstart' : 'mousedown', function (ev) {
+    maxSliderHtml.on(papaya.utilities.PlatformUtils.ios ? 'touchstart' : 'mousedown', function (ev) {
         menuItemRange.grabOffset = papaya.ui.MenuItemRange.getRelativeMousePositionX(maxSliderHtml, ev);
-        $(window).bind(papaya.utilities.PlatformUtils.ios ? 'touchmove' : 'mousemove', function (ev) {
+        $(window).on(papaya.utilities.PlatformUtils.ios ? 'touchmove' : 'mousemove', function (ev) {
             var val, minVal;
 
             minVal = (menuItemRange.screenVol.colorTable.minLUT / papaya.viewer.ColorTable.LUT_MAX) *
@@ -168,28 +168,28 @@ papaya.ui.MenuItemRange.prototype.buildHTML = function (parentId) {
         return false;  // disable img drag
     });
 
-    $(window).bind(papaya.utilities.PlatformUtils.ios ? 'touchend' : 'mouseup', function () {
-        $(window).unbind(papaya.utilities.PlatformUtils.ios ? 'touchmove' : 'mousemove');
+    $(window).on(papaya.utilities.PlatformUtils.ios ? 'touchend' : 'mouseup', function () {
+        $(window).off(papaya.utilities.PlatformUtils.ios ? 'touchmove' : 'mousemove');
     });
 
-    $("#" + this.id).hover(function () {$(this).toggleClass(PAPAYA_MENU_HOVERING_CSS); });
+    $("#" + this.id).on("mouseenter mouseleave", function () {$(this).toggleClass(PAPAYA_MENU_HOVERING_CSS); });
 
-    minHtml.change(papaya.utilities.ObjectUtils.bind(this, function () {
+    minHtml.on("change", papaya.utilities.ObjectUtils.bind(this, function () {
         menuItemRange.rangeChanged(true);
     }));
 
-    maxHtml.change(papaya.utilities.ObjectUtils.bind(this, function () {
+    maxHtml.on("change", papaya.utilities.ObjectUtils.bind(this, function () {
         menuItemRange.rangeChanged(false);
     }));
 
-    minHtml.keyup(papaya.utilities.ObjectUtils.bind(this, function (e) {
+    minHtml.on("keyup", papaya.utilities.ObjectUtils.bind(this, function (e) {
         if (e.keyCode === 13) {
             menuItemRange.rangeChanged(false);
             menuItemRange.viewer.container.toolbar.closeAllMenus();
         }
     }));
 
-    maxHtml.keyup(papaya.utilities.ObjectUtils.bind(this, function (e) {
+    maxHtml.on("keyup", papaya.utilities.ObjectUtils.bind(this, function (e) {
         if (e.keyCode === 13) {
             menuItemRange.rangeChanged(false);
             menuItemRange.viewer.container.toolbar.closeAllMenus();
@@ -198,7 +198,7 @@ papaya.ui.MenuItemRange.prototype.buildHTML = function (parentId) {
 
     if (!papaya.utilities.PlatformUtils.ios) {
         setTimeout(function () {  // IE wasn't picking up on the focus
-            minHtml.focus();
+            minHtml.trigger("focus");
             minHtml.select();
         }, 10);
     }
@@ -240,7 +240,7 @@ papaya.ui.MenuItemRange.prototype.updateDataSource = function (focusMax) {
     }
 
     if (focusMax) {
-        maxHtml.focus();
+        maxHtml.trigger("focus");
         maxHtml.select();
     }
 };

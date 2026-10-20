@@ -131,7 +131,7 @@ papaya.ui.Dialog.prototype.showDialog = function () {
         } else if (!this.content.items[ctr].spacer) {
             itemsHtml = $("#" + this.content.items[ctr].field);
             itemsHtml.val(this.dataSource[this.content.items[ctr].field]);
-            itemsHtml.change(papaya.utilities.ObjectUtils.bind(this, this.doAction, [this.content.items[ctr].field]));
+            itemsHtml.on("change", papaya.utilities.ObjectUtils.bind(this, this.doAction, [this.content.items[ctr].field]));
         }
     }
 
@@ -139,7 +139,7 @@ papaya.ui.Dialog.prototype.showDialog = function () {
         $("." + PAPAYA_DIALOG_CONTENT_CSS).addClass(PAPAYA_DIALOG_CONTENT_NOWRAP_CSS);
     }
 
-    $("#" + this.id + "-Ok").click(papaya.utilities.ObjectUtils.bind(this, this.doOk));
+    $("#" + this.id + "-Ok").on("click", papaya.utilities.ObjectUtils.bind(this, this.doOk));
 
     thisHtml = $(thisHtmlId);
     bodyHtml.addClass(PAPAYA_DIALOG_STOPSCROLL);
