@@ -10,14 +10,37 @@ Papaya is a pure JavaScript medical research image viewer, supporting [DICOM and
 
 Quickstart Guide
 ------
-### Development
-Load `tests/debug_local.html` or `tests/debug_server.html` in your [favorite](http://www.jetbrains.com/webstorm/) JavaScript debugger.
+> **Note:** this is the [Brain/MINDS data portal](https://dataportal.brainminds.jp/) fork of [rii-mango/Papaya](https://github.com/rii-mango/Papaya),
+> maintained on the `brainminds-dataportal` branch (`master` mirrors upstream).
 
+### Requirements
+Node.js 18+ (build tools only; the Java based builder has been replaced by a Node.js script using [esbuild](https://esbuild.github.io/)).
+
+```sh
+npm install
+```
+
+### Development
+Run `npm start`, then open http://127.0.0.1:8000/tests/debug_local.html or http://127.0.0.1:8000/tests/debug_server.html in your browser.
 
 ### [Building](https://github.com/rii-mango/Papaya/wiki/How-To-Build-Papaya)
-See [here](https://github.com/rii-mango/Papaya/tree/master/release) for the latest release or run `papaya-builder.sh` to create your own build.  See the [documentation](https://github.com/rii-mango/Papaya/wiki/How-To-Build-Papaya) for more information.
+See [here](release/current) for the latest release or run `npm run build` to create your own build in the `build/` folder.
+Options are passed after `--`, e.g. `npm run build -- --nodicom --sample` (see `npm run build -- --help`):
 
-Build using npm: `npm run build`
+| option | description |
+|---|---|
+| `--sample` | include sample image |
+| `--atlas [file]` | add atlas (default atlas if no arg) |
+| `--images <files...>` / `--surfaces <files...>` | images / surfaces to include |
+| `--local` | build for local usage (images are embedded in papaya.js) |
+| `--singlefile` | output a single HTML file |
+| `--nojquery` | do not include jQuery library |
+| `--nodicom` | do not include DICOM support |
+| `--tools` | include image tools (`imageTools` parameter; requires [Font Awesome](https://fontawesome.com/) stylesheet) |
+| `--parameterfile <file>` / `--title <text>` / `--footnote <text>` | customize the generated `index.html` |
+| `--noincrement` | do not increment build number |
+
+`npm run release` rebuilds all the variants in `release/current/`.
 
 ### [Usage](https://github.com/rii-mango/Papaya/wiki/Usage) & [Configuration](https://github.com/rii-mango/Papaya/wiki/Configuration)
 
@@ -59,7 +82,7 @@ Build using npm: `npm run build`
 ```html
 <head>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-   <script type="text/javascript" src="../src/js/viewer/viewerTools.js"></script>
+   <script type="text/javascript" src="papaya.js"></script> <!-- built with: npm run build -- --tools -->
     ...
     <script type="text/javascript">
         var params = [];
@@ -101,7 +124,7 @@ Papaya uses:
 
 As well as the following third-party libraries:
 - [bowser](https://github.com/ded/bowser) &mdash; for browser detection
-- [Closure Compiler](https://developers.google.com/closure/compiler/) &mdash; JavaScript compression
+- [esbuild](https://esbuild.github.io/) &mdash; JavaScript & CSS compression
 - [jquery](http://jquery.com/) &mdash; DOM manipulation
 - [numerics](http://numericjs.com/) &mdash; for matrix math
 - [pako](https://github.com/nodeca/pako) &mdash; for GZIP inflating
